@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Admin Panel - Sidama Education Portal</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f8f9fa;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+        .top-bar {
+            background: #0b4f37;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-area {
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+        h1 {
+            color: #0b4f37;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .admin-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .admin-card h2 {
+            font-size: 18px;
+            color: #0b4f37;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #fcd116;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .btn-primary {
+            background: #0b4f37;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        .btn-secondary {
+            background: #fcd116;
+            color: #0b4f37;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .school-item {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid #fcd116;
+        }
+        .school-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .school-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #0b4f37;
+        }
+        .school-details {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .school-links {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 12px;
+            word-break: break-all;
+        }
+        .school-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .featured-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .featured-check input {
+            width: 18px;
+            height: 18px;
+        }
+        .save-btn {
+            background: #0b4f37;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 16px;
+        }
+        .message {
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .login-box {
+            max-width: 400px;
+            margin: 80px auto;
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .login-box h2 {
+            text-align: center;
+            color: #0b4f37;
+            margin-bottom: 24px;
+        }
+        .login-btn {
+            background: #0b4f37;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+        footer {
+            background: #0b4f37;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="loginContainer">
+    <div class="login-box">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="images/logo.png" alt="Logo" style="width: 80px;">
+        </div>
+        <h2>🔐 ADMIN LOGIN</h2>
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="loginUsername" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter password">
+        </div>
+        <button class="login-btn" onclick="login()">LOGIN</button>
+        <div id="loginMessage" style="margin-top: 15px; text-align: center; color: red; font-size: 12px;"></div>
+    </div>
+</div>
+
+<div id="adminContainer" style="display: none;">
+    <div class="top-bar">
+        <div class="logo-area">🔐 ADMIN PANEL</div>
+        <button class="logout-btn" onclick="logout()">LOGOUT</button>
+    </div>
+
+    <main>
+        <h1>Manage Schools</h1>
+        
+        <div id="messageBox" class="message"></div>
+        
+        <!-- Add New School Form -->
+        <div class="admin-card">
+            <h2>📝 ADD NEW SCHOOL</h2>
+            
+            <div class="form-group">
+                <label>School Name (Sidaamu Afoo)</label>
+                <input type="text" id="schoolNameSid" placeholder="e.g., FUMA HAYYOOLE ROSU PIROJEKITE">
+            </div>
+            <div class="form-group">
+                <label>School Name (English)</label>
+                <input type="text" id="schoolNameEng" placeholder="e.g., FUMA HAYOLE EDUCATION PROJECT">
+            </div>
+            <div class="form-group">
+                <label>School Name (Amharic)</label>
+                <input type="text" id="schoolNameAmh" placeholder="e.g., ፉማ ሃዮሌ ትምህርት ፕሮጀክት">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Zone</label>
+                    <select id="schoolZone" onchange="updateWoredaDropdown()">
+                        <option value="">Select Zone</option>
+                        <option value="Central">Central Sidama Zone</option>
+                        <option value="Eastern">Eastern Sidama Zone</option>
+                        <option value="Hawassa">Hawassa Zone</option>
+                        <option value="Northern">Northern Sidama Zone</option>
+                        <option value="Southern">Southern Sidama Zone</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Woreda</label>
+                    <select id="schoolWoreda">
+                        <option value="">Select Zone First</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Grades</label>
+                    <select id="schoolGrades">
+                        <option value="Grade 1-8">Grade 1-8</option>
+                        <option value="Grade 9-12">Grade 9-12</option>
+                        <option value="Grade 1-12">Grade 1-12</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Rating</label>
+                    <select id="schoolRating">
+                        <option value="5.0">⭐ 5.0</option>
+                        <option value="4.9">⭐ 4.9</option>
+                        <option value="4.8">⭐ 4.8</option>
+                        <option value="4.7">⭐ 4.7</option>
+                        <option value="4.6">⭐ 4.6</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Google Form Link (Sidaamu Afoo)</label>
+                <input type="url" id="formLinkSid" placeholder="https://forms.google.com/...">
+            </div>
+            <div class="form-group">
+                <label>Google Form Link (English)</label>
+                <input type="url" id="formLinkEng" placeholder="https://forms.google.com/...">
+            </div>
+            <div class="form-group">
+                <label>Google Form Link (Amharic)</label>
+                <input type="url" id="formLinkAmh" placeholder="https://forms.google.com/...">
+            </div>
+            
+            <button class="btn-primary" onclick="addSchool()">➕ ADD SCHOOL</button>
+        </div>
+        
+        <!-- Manage Schools List -->
+        <div class="admin-card">
+            <h2>⭐ MANAGE SCHOOLS</h2>
+            <div id="schoolsList"></div>
+            <button class="save-btn" onclick="saveAllChanges()">💾 SAVE ALL CHANGES</button>
+        </div>
+    </main>
+    
+    <footer>
+        <p>© 2026 Sidama Education Bureau. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<script>
+    // Woredas by Zone
+    const woredasData = {
+        "Central": ["Arbegona", "Dale", "Darara", "Irgalem Town", "Loko Abaya", "Shafamo", "Wensho"],
+        "Eastern": ["Aroresa", "Bensa", "Bona Zuria", "Bura", "Chabe Gambeltu", "Chere", "Daela", "Daye Town", "Hoko"],
+        "Hawassa": ["Addis Ketema", "Hayk Dar", "Mehal", "Menahariya", "Misrak", "Tabor", "Hawela Tula", "Bahil Adarash"],
+        "Northern": ["Bilate Zuria", "Boricha", "Gorche", "Hawassa Zuria", "Malga", "Shebedino", "Wondo Genet"],
+        "Southern": ["Aleta Wendo", "Aleta Wendo Town", "Bursa", "Chuko", "Dara", "Dara Otilcho", "Hula", "Teticha"]
+    };
+    
+    // Translation for woreda names (for display)
+    const woredaTranslations = {
+        "Arbegona": { sid: "Arbegooona", amh: "አርበጎና" },
+        "Dale": { sid: "Daalle", amh: "ዳሌ" },
+        "Darara": { sid: "Daraara", amh: "ደራራ" },
+        "Irgalem Town": { sid: "Yirgaalame", amh: "ኢርጋለም ከተማ" },
+        "Loko Abaya": { sid: "Lokka Abbaayya", amh: "ሎኮ አባያ" },
+        "Shafamo": { sid: "Shaafaamo", amh: "ሻፋሞ" },
+        "Wensho": { sid: "Wonsho", amh: "ወንሾ" },
+        "Aroresa": { sid: "Arooreessa", amh: "አሮረሳ" },
+        "Bensa": { sid: "Bansa", amh: "ቤንሳ" },
+        "Bona Zuria": { sid: "Booni Ganagaawa", amh: "ቦና ዙሪያ" },
+        "Bura": { sid: "Burra", amh: "ቡራ" },
+        "Chabe Gambeltu": { sid: "Caabbe Gaambeltu", amh: "ቻቤ ጋምቤልቱ" },
+        "Chere": { sid: "Cirre", amh: "ጨረ" },
+        "Daela": { sid: "Deela", amh: "ዳኤላ" },
+        "Daye Town": { sid: "Daayye Katama", amh: "ዳዬ ከተማ" },
+        "Hoko": { sid: "Hoko", amh: "ሆኮ" },
+        "Addis Ketema": { sid: "Addisi Ketema", amh: "አዲስ ከተማ" },
+        "Hayk Dar": { sid: "Hayqi Daari", amh: "ሐይቅ ዳር" },
+        "Mehal": { sid: "Mehaali", amh: "መሀል" },
+        "Menahariya": { sid: "Mennahaariha", amh: "መናህሪያ" },
+        "Misrak": { sid: "Misiraaqi", amh: "ምሥራቅ" },
+        "Tabor": { sid: "Taaboori", amh: "ታቦር" },
+        "Hawela Tula": { sid: "Haweela Tuula", amh: "ሀወላ ቱላ" },
+        "Bahil Adarash": { sid: "Bahili Addaraashshi", amh: "ባሕል አደራሽ" },
+        "Bilate Zuria": { sid: "Bilaatte Gangaawa", amh: "ብላቴ ዙሪያ" },
+        "Boricha": { sid: "Borricha", amh: "ቦሪቻ" },
+        "Gorche": { sid: "Gorchee", amh: "ጎርቼ" },
+        "Hawassa Zuria": { sid: "Hawaasi Gaangaawa", amh: "ሀዋሳ ዙሪያ" },
+        "Malga": { sid: "Malga", amh: "ማልጋ" },
+        "Shebedino": { sid: "Shabbadiino", amh: "ሸበዲኖ" },
+        "Wondo Genet": { sid: "Wondo Gannate", amh: "ወንዶ ገነት" },
+        "Aleta Wendo": { sid: "Aletta Wondo", amh: "አለታ ወንዶ" },
+        "Aleta Wendo Town": { sid: "Aletta Wondo Kifile-katama", amh: "አለታ ወንዶ ከተማ" },
+        "Bursa": { sid: "Bursa", amh: "ቡርሳ" },
+        "Chuko": { sid: "Cuukko", amh: "ቹኮ" },
+        "Dara": { sid: "Daarra", amh: "ዳራ" },
+        "Dara Otilcho": { sid: "Daarra Otilch", amh: "ዳራ ኦቲልቾ" },
+        "Hula": { sid: "Hula", amh: "ሁላ" },
+        "Teticha": { sid: "Xexicha", amh: "ጠጢቻ" }
+    };
+    
+    // Default schools
+    let schools = [
+        { id: 1, name_sid: "FUMA HAYYOOLE ROSU PIROJEKITE", name_eng: "FUMA HAYOLE EDUCATION PROJECT", name_amh: "ፉማ ሃዮሌ ትምህርት ፕሮጀክት", zone: "Hawassa", woreda: "Mehal", grades: "Grade 9-12", rating: "4.9", form_link_sid: "#", form_link_eng: "#", form_link_amh: "#", featured: true },
+        { id: 2, name_sid: "LEKU 2ᵏⁱ DIRIMI ROSI MINE", name_eng: "LAKOTE 2nd CYCLE SECONDARY", name_amh: "ላኮቴ 2ኛ ደረጃ ትምህርት ቤት", zone: "Northern", woreda: "Shebedino", grades: "Grade 9-12", rating: "4.9", form_link_sid: "#", form_link_eng: "#", form_link_amh: "#", featured: true },
+        { id: 3, name_sid: "TAABOORI 2ᵏⁱ DIRIMI ROSI MINE", name_eng: "TABOR 2nd CYCLE SECONDARY", name_amh: "ታቦር 2ኛ ደረጃ ትምህርት ቤት", zone: "Hawassa", woreda: "Tabor", grades: "Grade 9-12", rating: "4.7", form_link_sid: "#", form_link_eng: "#", form_link_amh: "#", featured: true },
+        { id: 4, name_sid: "RAAS DESITA 2ᵏⁱ DIRIMI ROSI MINE", name_eng: "RAS DESTA 2nd CYCLE SECONDARY", name_amh: "ራስ ደስታ 2ኛ ደረጃ ትምህርት ቤት", zone: "Central", woreda: "Irgalem Town", grades: "Grade 9-12", rating: "4.9", form_link_sid: "#", form_link_eng: "#", form_link_amh: "#", featured: true }
+    ];
+    
+    let nextId = 5;
+    
+    function updateWoredaDropdown() {
+        const zone = document.getElementById('schoolZone').value;
+        const woredaSelect = document.getElementById('schoolWoreda');
+        woredaSelect.innerHTML = '<option value="">Select Woreda</option>';
+        
+        if (zone && woredasData[zone]) {
+            woredasData[zone].forEach(w => {
+                woredaSelect.innerHTML += `<option value="${w}">${w}</option>`;
+            });
+        }
+    }
+    
+    function addSchool() {
+        const name_sid = document.getElementById('schoolNameSid').value.trim();
+        const name_eng = document.getElementById('schoolNameEng').value.trim();
+        const name_amh = document.getElementById('schoolNameAmh').value.trim();
+        const zone = document.getElementById('schoolZone').value;
+        const woreda = document.getElementById('schoolWoreda').value;
+        const grades = document.getElementById('schoolGrades').value;
+        const rating = document.getElementById('schoolRating').value;
+        const form_link_sid = document.getElementById('formLinkSid').value.trim();
+        const form_link_eng = document.getElementById('formLinkEng').value.trim();
+        const form_link_amh = document.getElementById('formLinkAmh').value.trim();
+        
+        if (!name_sid || !name_eng || !name_amh || !zone || !woreda) {
+            showMessage('Please fill all required fields', 'error');
+            return;
+        }
+        
+        const newSchool = {
+            id: nextId++,
+            name_sid, name_eng, name_amh,
+            zone, woreda, grades, rating,
+            form_link_sid, form_link_eng, form_link_amh,
+            featured: false
+        };
+        
+        schools.push(newSchool);
+        
+        // Clear form
+        document.getElementById('schoolNameSid').value = '';
+        document.getElementById('schoolNameEng').value = '';
+        document.getElementById('schoolNameAmh').value = '';
+        document.getElementById('schoolZone').value = '';
+        document.getElementById('schoolWoreda').innerHTML = '<option value="">Select Zone First</option>';
+        document.getElementById('formLinkSid').value = '';
+        document.getElementById('formLinkEng').value = '';
+        document.getElementById('formLinkAmh').value = '';
+        
+        renderSchoolsList();
+        showMessage('School added successfully!', 'success');
+        saveToLocalStorage();
+    }
+    
+    function toggleFeatured(id) {
+        const school = schools.find(s => s.id === id);
+        if (school) {
+            school.featured = !school.featured;
+            renderSchoolsList();
+            saveToLocalStorage();
+        }
+    }
+    
+    function removeSchool(id) {
+        if (confirm('Are you sure you want to remove this school?')) {
+            schools = schools.filter(s => s.id !== id);
+            renderSchoolsList();
+            saveToLocalStorage();
+            showMessage('School removed successfully!', 'success');
+        }
+    }
+    
+    function renderSchoolsList() {
+        const container = document.getElementById('schoolsList');
+        if (!container) return;
+        
+        if (schools.length === 0) {
+            container.innerHTML = '<p style="text-align:center; color:#666;">No schools added yet.</p>';
+            return;
+        }
+        
+        container.innerHTML = '';
+        schools.forEach(school => {
+            const schoolDiv = document.createElement('div');
+            schoolDiv.className = 'school-item';
+            schoolDiv.innerHTML = `
+                <div class="school-header">
+                    <span class="school-name">${school.name_eng}</span>
+                    <div class="school-actions">
+                        <button class="btn-danger" onclick="removeSchool(${school.id})">🗑️ REMOVE</button>
+                    </div>
+                </div>
+                <div class="school-details">
+                    📍 ${school.zone} › ${school.woreda} | 🎓 ${school.grades} | ${getStarRating(school.rating)}
+                </div>
+                <div class="school-links">
+                    🔗 Sidaamu: ${school.form_link_sid.substring(0, 50)}...<br>
+                    🔗 English: ${school.form_link_eng.substring(0, 50)}...<br>
+                    🔗 Amharic: ${school.form_link_amh.substring(0, 50)}...
+                </div>
+                <div class="featured-check">
+                    <input type="checkbox" id="featured_${school.id}" ${school.featured ? 'checked' : ''} onchange="toggleFeatured(${school.id})">
+                    <label for="featured_${school.id}">⭐ Featured on Homepage</label>
+                </div>
+            `;
+            container.appendChild(schoolDiv);
+        });
+    }
+    
+    function getStarRating(rating) {
+        const num = parseFloat(rating);
+        return '⭐'.repeat(Math.floor(num)) + (num % 1 >= 0.5 ? '½' : '');
+    }
+    
+    function saveAllChanges() {
+        saveToLocalStorage();
+        showMessage('All changes saved successfully!', 'success');
+        updateSchoolsJsonFile();
+    }
+    
+    function saveToLocalStorage() {
+        localStorage.setItem('sidama_schools', JSON.stringify(schools));
+        localStorage.setItem('sidama_nextId', nextId);
+    }
+    
+    function loadFromLocalStorage() {
+        const saved = localStorage.getItem('sidama_schools');
+        if (saved) {
+            schools = JSON.parse(saved);
+            nextId = parseInt(localStorage.getItem('sidama_nextId')) || schools.length + 1;
+        }
+        renderSchoolsList();
+    }
+    
+    function updateSchoolsJsonFile() {
+        // This would normally write to schools.json
+        // For GitHub Pages, we save to localStorage
+        console.log('Schools data updated:', schools);
+    }
+    
+    function showMessage(msg, type) {
+        const msgBox = document.getElementById('messageBox');
+        msgBox.textContent = msg;
+        msgBox.className = `message ${type}`;
+        msgBox.style.display = 'block';
+        setTimeout(() => {
+            msgBox.style.display = 'none';
+        }, 3000);
+    }
+    
+    // Login function
+    function login() {
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+        
+        if (username === '1000tech' && password === 'Godisonly1!') {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('adminContainer').style.display = 'block';
+            loadFromLocalStorage();
+        } else {
+            document.getElementById('loginMessage').textContent = 'Invalid username or password';
+        }
+    }
+    
+    function logout() {
+        document.getElementById('loginContainer').style.display = 'block';
+        document.getElementById('adminContainer').style.display = 'none';
+        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginPassword').value = '';
+        document.getElementById('loginMessage').textContent = '';
+    }
+    
+    // Initialize woreda dropdown on zone change
+    window.updateWoredaDropdown = updateWoredaDropdown;
+    window.toggleFeatured = toggleFeatured;
+    window.removeSchool = removeSchool;
+    window.addSchool = addSchool;
+    window.saveAllChanges = saveAllChanges;
+    window.login = login;
+    window.logout = logout;
+</script>
+
+</body>
+</html>

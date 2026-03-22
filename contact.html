@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Contact Us - Sidama Education Portal</title>
+    <meta name="description" content="Contact Sidama Education Bureau. Get in touch for registration support.">
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f8f9fa;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+        .top-bar {
+            background: #0b4f37;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .lang-btn.active {
+            background: #fcd116;
+            color: #0b4f37;
+            font-weight: bold;
+        }
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 200;
+            transition: left 0.3s ease;
+            padding: 20px;
+        }
+        .mobile-menu.open { left: 0; }
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 24px;
+            float: right;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .mobile-menu a {
+            display: block;
+            padding: 12px 0;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        .menu-divider {
+            height: 1px;
+            background: #ddd;
+            margin: 15px 0;
+        }
+        .menu-langs button {
+            background: #f0f0f0;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            text-align: left;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        main {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #0b4f37;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .page-title {
+            font-size: 28px;
+            color: #0b4f37;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .contact-logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .contact-logo-img {
+            width: 100px;
+            height: auto;
+        }
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .contact-card h2 {
+            font-size: 20px;
+            color: #0b4f37;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .contact-info {
+            list-style: none;
+            padding: 0;
+        }
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .contact-info li:last-child {
+            border-bottom: none;
+        }
+        .contact-icon {
+            font-size: 20px;
+            width: 32px;
+        }
+        .contact-info a {
+            color: #0b4f37;
+            text-decoration: none;
+        }
+        .office-hours {
+            margin-top: 12px;
+            padding: 12px;
+            background: #e9ecef;
+            border-radius: 12px;
+        }
+        .office-hours p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .map-placeholder {
+            background: #e9ecef;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        footer {
+            background: #0b4f37;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .footer-logo-img { width: 60px; height: auto; margin-bottom: 10px; }
+        .footer-logo h3 { font-size: 14px; margin-top: 8px; }
+        .footer-contact p { font-size: 12px; margin: 5px 0; }
+        .footer-contact a { color: white; text-decoration: none; }
+        .footer-copyright { font-size: 10px; margin-top: 20px; opacity: 0.7; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en">ENGLISH</button>
+        <button class="lang-btn" data-lang="sid">SIDAAMU AFOO</button>
+        <button class="lang-btn" data-lang="amh">አማርኛ</button>
+    </div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">✕</button>
+    <a href="index.html" data-key="home">HOME</a>
+    <a href="search.html" data-key="search">SEARCH</a>
+    <a href="zones.html" data-key="zones">ZONES</a>
+    <a href="about.html" data-key="about">ABOUT US</a>
+    <a href="contact.html" data-key="contact">CONTACT</a>
+    <a href="help.html" data-key="help">HELP</a>
+    <div class="menu-divider"></div>
+    <div class="menu-langs">
+        <button data-lang="en">🌐 ENGLISH</button>
+        <button data-lang="sid">🌐 SIDAAMU AFOO</button>
+        <button data-lang="amh">🌐 አማርኛ</button>
+    </div>
+</div>
+
+<main>
+    <button class="back-btn" id="backBtn" data-key="back">← BACK</button>
+    <h1 class="page-title" data-key="title">CONTACT US</h1>
+    
+    <div class="contact-logo">
+        <img src="images/logo.png" alt="Logo" class="contact-logo-img">
+    </div>
+    
+    <div class="contact-card">
+        <h2>📍 <span data-key="address_title">Address</span></h2>
+        <p data-key="address">Hawassa, Sidama Region, Ethiopia</p>
+    </div>
+    
+    <div class="contact-card">
+        <h2>📞 <span data-key="phone_title">Phone</span></h2>
+        <ul class="contact-info">
+            <li><span class="contact-icon">📞</span> <span data-key="phone_main">Main Office:</span> <a href="tel:+251962524802">+251-962-524-802</a></li>
+            <li><span class="contact-icon">📱</span> <span data-key="phone_support">Registration Support:</span> <a href="tel:+251962524802">+251-962-524-802</a></li>
+        </ul>
+    </div>
+    
+    <div class="contact-card">
+        <h2>✉️ <span data-key="email_title">Email</span></h2>
+        <ul class="contact-info">
+            <li><span class="contact-icon">✉️</span> <span data-key="email_general">General Inquiries:</span> <a href="https://t.me/shimetechsolutions" target="_blank">info@sidamaeducation.gov.et</a></li>
+            <li><span class="contact-icon">📝</span> <span data-key="email_registration">Registration Support:</span> <a href="https://t.me/shimetechsolutions" target="_blank">registration@sidamaeducation.gov.et</a></li>
+        </ul>
+    </div>
+    
+    <div class="contact-card">
+        <h2>⏰ <span data-key="hours_title">Office Hours</span></h2>
+        <div class="office-hours">
+            <p data-key="hours_weekday">Monday - Friday: 8:30 AM - 5:00 PM</p>
+            <p data-key="hours_saturday">Saturday: 9:00 AM - 1:00 PM</p>
+            <p data-key="hours_sunday">Sunday: Closed</p>
+        </div>
+    </div>
+    
+    <div class="contact-card">
+        <h2>🗺️ <span data-key="map_title">Location</span></h2>
+        <div class="map-placeholder">
+            📍 Sidama Education Bureau<br>
+            Hawassa, Sidama Region<br>
+            <span data-key="map_note">Near Hawassa Lake, Main Road</span>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-logo"><img src="images/logo.png" alt="Logo" class="footer-logo-img"><h3 data-key="footer_bureau">SIDAMA EDUCATION BUREAU</h3></div>
+    <div class="footer-contact"><p>📍 Hawassa, Sidama Region</p><p>📞 +251962524802</p><p><a href="https://t.me/shimetechsolutions" target="_blank">✉️ info@sidamaeducation.gov.et</a></p></div>
+    <div class="footer-copyright"><p>© 2026 Sidama Education Bureau. All Rights Reserved.</p></div>
+</footer>
+
+<script>
+    let currentLang = 'en';
+
+    // All content in ENGLISH - only menu/navigation changes with language
+    const translations = {
+        en: {
+            back: "← BACK", title: "CONTACT US",
+            address_title: "Address", address: "Hawassa, Sidama Region, Ethiopia",
+            phone_title: "Phone", phone_main: "Main Office:", phone_support: "Registration Support:",
+            email_title: "Email", email_general: "General Inquiries:", email_registration: "Registration Support:",
+            hours_title: "Office Hours", hours_weekday: "Monday - Friday: 8:30 AM - 5:00 PM",
+            hours_saturday: "Saturday: 9:00 AM - 1:00 PM", hours_sunday: "Sunday: Closed",
+            map_title: "Location", map_note: "Near Hawassa Lake, Main Road",
+            home: "HOME", search: "SEARCH", zones: "ZONES", about: "ABOUT US", contact: "CONTACT", help: "HELP",
+            footer_bureau: "SIDAMA EDUCATION BUREAU"
+        },
+        sid: {
+            back: "← HIGI", title: "NINKENNI XAADI",
+            address_title: "Address", address: "Hawassa, Sidama Region, Ethiopia",
+            phone_title: "Phone", phone_main: "Main Office:", phone_support: "Registration Support:",
+            email_title: "Email", email_general: "General Inquiries:", email_registration: "Registration Support:",
+            hours_title: "Office Hours", hours_weekday: "Monday - Friday: 8:30 AM - 5:00 PM",
+            hours_saturday: "Saturday: 9:00 AM - 1:00 PM", hours_sunday: "Sunday: Closed",
+            map_title: "Location", map_note: "Near Hawassa Lake, Main Road",
+            home: "🏠 KAIMA", search: "🔍 HASI", zones: "📍 ZOONNA", about: "ℹ️ NINKE DAAFIRA", contact: "📞 NINKENNI XAADI", help: "❓ KAA'LO",
+            footer_bureau: "SIDAAMU QOQQOWI ROSU BIIRO"
+        },
+        amh: {
+            back: "← ተመለስ", title: "አድራሻ",
+            address_title: "Address", address: "Hawassa, Sidama Region, Ethiopia",
+            phone_title: "Phone", phone_main: "Main Office:", phone_support: "Registration Support:",
+            email_title: "Email", email_general: "General Inquiries:", email_registration: "Registration Support:",
+            hours_title: "Office Hours", hours_weekday: "Monday - Friday: 8:30 AM - 5:00 PM",
+            hours_saturday: "Saturday: 9:00 AM - 1:00 PM", hours_sunday: "Sunday: Closed",
+            map_title: "Location", map_note: "Near Hawassa Lake, Main Road",
+            home: "🏠 መነሻ", search: "🔍 ፍለጋ", zones: "📍 ዞኖች", about: "ℹ️ ስለ እኛ", contact: "📞 አድራሻ", help: "❓ እገዛ",
+            footer_bureau: "ሲዳማ ትምህርት ቢሮ"
+        }
+    };
+
+    function applyTranslations() {
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (translations[currentLang][key]) {
+                el.innerHTML = translations[currentLang][key];
+            }
+        });
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            const key = link.getAttribute('data-key');
+            if (key && translations[currentLang][key]) link.innerHTML = translations[currentLang][key];
+        });
+    }
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('preferredLang', lang);
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+        });
+        applyTranslations();
+    }
+
+    document.getElementById('backBtn')?.addEventListener('click', () => window.location.href = 'index.html');
+
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    menuBtn?.addEventListener('click', () => mobileMenu.classList.add('open'));
+    closeMenu?.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+    document.querySelectorAll('.lang-btn, .menu-langs button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            setLanguage(btn.getAttribute('data-lang'));
+            mobileMenu.classList.remove('open');
+        });
+    });
+
+    const savedLang = localStorage.getItem('preferredLang');
+    setLanguage(savedLang && ['en','sid','amh'].includes(savedLang) ? savedLang : 'en');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Search Results - Sidama Education Portal</title>
+    <meta name="description" content="Search results for schools in Sidama Region.">
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f8f9fa;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+        .top-bar {
+            background: #0b4f37;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .lang-btn.active {
+            background: #fcd116;
+            color: #0b4f37;
+            font-weight: bold;
+        }
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 200;
+            transition: left 0.3s ease;
+            padding: 20px;
+        }
+        .mobile-menu.open { left: 0; }
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 24px;
+            float: right;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .mobile-menu a {
+            display: block;
+            padding: 12px 0;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        .menu-divider {
+            height: 1px;
+            background: #ddd;
+            margin: 15px 0;
+        }
+        .menu-langs button {
+            background: #f0f0f0;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            text-align: left;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        main {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #0b4f37;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .search-query {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: #e9ecef;
+            border-radius: 12px;
+        }
+        .results-count {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #0b4f37;
+        }
+        .schools-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .school-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .school-card:active { transform: scale(0.98); }
+        .school-card h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #0b4f37;
+        }
+        .school-location {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        .school-grades {
+            font-size: 12px;
+            color: #0b4f37;
+            margin-bottom: 4px;
+        }
+        .school-rating {
+            font-size: 12px;
+            color: #fcd116;
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            color: #666;
+        }
+        footer {
+            background: #0b4f37;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .footer-logo-img { width: 60px; height: auto; margin-bottom: 10px; }
+        .footer-logo h3 { font-size: 14px; margin-top: 8px; }
+        .footer-contact p { font-size: 12px; margin: 5px 0; }
+        .footer-contact a { color: white; text-decoration: none; }
+        .footer-copyright { font-size: 10px; margin-top: 20px; opacity: 0.7; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en">ENGLISH</button>
+        <button class="lang-btn" data-lang="sid">SIDAAMU AFOO</button>
+        <button class="lang-btn" data-lang="amh">አማርኛ</button>
+    </div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">✕</button>
+    <a href="index.html" data-key="home">HOME</a>
+    <a href="search.html" data-key="search">SEARCH</a>
+    <a href="zones.html" data-key="zones">ZONES</a>
+    <a href="about.html" data-key="about">ABOUT US</a>
+    <a href="contact.html" data-key="contact">CONTACT</a>
+    <a href="help.html" data-key="help">HELP</a>
+    <div class="menu-divider"></div>
+    <div class="menu-langs">
+        <button data-lang="en">🌐 ENGLISH</button>
+        <button data-lang="sid">🌐 SIDAAMU AFOO</button>
+        <button data-lang="amh">🌐 አማርኛ</button>
+    </div>
+</div>
+
+<main>
+    <button class="back-btn" id="backBtn" data-key="back">← BACK</button>
+    <div class="search-query" id="searchQuery"></div>
+    <div class="results-count" id="resultsCount"></div>
+    <div class="schools-grid" id="resultsGrid"></div>
+</main>
+
+<footer>
+    <div class="footer-logo"><img src="images/logo.png" alt="Logo" class="footer-logo-img"><h3 data-key="footer_bureau">SIDAMA EDUCATION BUREAU</h3></div>
+    <div class="footer-contact"><p>📍 Hawassa, Sidama Region</p><p>📞 +251962524802</p><p><a href="https://t.me/shimetechsolutions" target="_blank">✉️ info@sidamaeducation.gov.et</a></p></div>
+    <div class="footer-copyright"><p>© 2026 Sidama Education Bureau. All Rights Reserved.</p></div>
+</footer>
+
+<script>
+    // All schools data for search
+    const allSchools = [
+        { name_en: "Abela School", name_sid: "ABDELA ROSI MINE", name_amh: "አቤላ ትምህርት ቤት", location: "Dale, Central", grades: "Grades 1-8", rating: "⭐ 4.5" },
+        { name_en: "Bellata School", name_sid: "BELLATA ROSI MINE", name_amh: "በላታ ትምህርት ቤት", location: "Dale, Central", grades: "Grades 1-8", rating: "⭐ 4.6" },
+        { name_en: "Ras Desta Secondary", name_sid: "RAAS DESTA LAMMAFFAA ROSI MINE", name_amh: "ራስ ደስታ ሁለተኛ ደረጃ ትምህርት ቤት", location: "Irgalem, Central", grades: "Grades 9-12", rating: "⭐ 4.8" },
+        { name_en: "Tsinat Secondary", name_sid: "TSINAAT LAMMAFFAA ROSI MINE", name_amh: "ጽናት ሁለተኛ ደረጃ ትምህርት ቤት", location: "Dale, Central", grades: "Grades 9-12", rating: "⭐ 4.9" },
+        { name_en: "Fuma Hayole Education Project", name_sid: "FUMA HAYYOOLE ROSU PIROJEKITE", name_amh: "ፉማ ሃዮሌ ትምህርት ፕሮጀክት", location: "Mehal, Hawassa", grades: "Grades 9-12", rating: "⭐ 4.9" },
+        { name_en: "Lakote Secondary", name_sid: "LEKU 2ᵏⁱ DIRIMI ROSI MINE", name_amh: "ላኮቴ ሁለተኛ ደረጃ ትምህርት ቤት", location: "Shebedino, Northern", grades: "Grades 9-12", rating: "⭐ 4.9" },
+        { name_en: "Tabor Secondary", name_sid: "TAABOORI 2ᵏⁱ DIRIMI ROSI MINE", name_amh: "ታቦር ሁለተኛ ደረጃ ትምህርት ቤት", location: "Tabor, Hawassa", grades: "Grades 9-12", rating: "⭐ 4.7" },
+        { name_en: "Bensa Secondary", name_sid: "BANSI LAMMAFFAA ROSI MINE", name_amh: "ቤንሳ ሁለተኛ ደረጃ ትምህርት ቤት", location: "Bensa, Eastern", grades: "Grades 9-12", rating: "⭐ 4.7" }
+    ];
+
+    let currentLang = 'en';
+    let searchQuery = '';
+
+    const translations = {
+        en: {
+            back: "← BACK", search_results: "Search Results", schools_found: "schools found",
+            home: "HOME", search: "SEARCH", zones: "ZONES", about: "ABOUT US", contact: "CONTACT", help: "HELP",
+            footer_bureau: "SIDAMA EDUCATION BUREAU", no_results: "No schools found"
+        },
+        sid: {
+            back: "← HIGI", search_results: "KOYE HASI", schools_found: "ROSI MINNA AFANTINO",
+            home: "🏠 KAIMA", search: "🔍 HASI", zones: "📍 ZOONNA", about: "ℹ️ NINKE DAAFIRA", contact: "📞 NINKENNI XAADI", help: "❓ KAA'LO",
+            footer_bureau: "SIDAAMU QOQQOWI ROSU BIIRO", no_results: "ROSI MINNA HINJERU"
+        },
+        amh: {
+            back: "← ተመለስ", search_results: "የፍለጋ ውጤት", schools_found: "ትምህርት ቤቶች ተገኝተዋል",
+            home: "🏠 መነሻ", search: "🔍 ፍለጋ", zones: "📍 ዞኖች", about: "ℹ️ ስለ እኛ", contact: "📞 አድራሻ", help: "❓ እገዛ",
+            footer_bureau: "ሲዳማ ትምህርት ቢሮ", no_results: "ምንም ትምህርት ቤት አልተገኘም"
+        }
+    };
+
+    function getSchoolName(school) {
+        if (currentLang === 'en') return school.name_en;
+        if (currentLang === 'sid') return school.name_sid;
+        return school.name_amh;
+    }
+
+    function searchSchools() {
+        const query = searchQuery.toLowerCase();
+        const results = allSchools.filter(school => 
+            school.name_en.toLowerCase().includes(query) ||
+            school.name_sid.toLowerCase().includes(query) ||
+            school.name_amh.includes(query)
+        );
+        return results;
+    }
+
+    function displayResults() {
+        const results = searchSchools();
+        const container = document.getElementById('resultsGrid');
+        const countElem = document.getElementById('resultsCount');
+        
+        if (!container) return;
+        
+        if (results.length === 0) {
+            container.innerHTML = `<div class="no-results">${translations[currentLang].no_results}</div>`;
+            countElem.innerHTML = '';
+            return;
+        }
+        
+        // Format: "8 rosi minna afantino" for Sidaamu, "8 schools found" for English
+        if (currentLang === 'sid') {
+            countElem.innerHTML = `${results.length} ${translations[currentLang].schools_found}`;
+        } else {
+            countElem.innerHTML = `${results.length} ${translations[currentLang].schools_found}`;
+        }
+        container.innerHTML = '';
+        
+        results.forEach(school => {
+            const card = document.createElement('div');
+            card.className = 'school-card';
+            card.innerHTML = `
+                <h4>${getSchoolName(school)}</h4>
+                <div class="school-location">📍 ${school.location}</div>
+                <div class="school-grades">🎓 ${school.grades}</div>
+                <div class="school-rating">${school.rating}</div>
+            `;
+            card.onclick = () => {
+                // Navigate to schools page with this school selected
+                window.location.href = `schools.html?search=${encodeURIComponent(getSchoolName(school))}`;
+            };
+            container.appendChild(card);
+        });
+    }
+
+    function applyTranslations() {
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (translations[currentLang][key]) el.innerHTML = translations[currentLang][key];
+        });
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            const key = link.getAttribute('data-key');
+            if (key && translations[currentLang][key]) link.innerHTML = translations[currentLang][key];
+        });
+        
+        // Show search query in selected language
+        if (currentLang === 'sid') {
+            document.getElementById('searchQuery').innerHTML = `🔍 ${translations[currentLang].search_results}: "${searchQuery}"`;
+        } else {
+            document.getElementById('searchQuery').innerHTML = `🔍 ${translations[currentLang].search_results}: "${searchQuery}"`;
+        }
+        displayResults();
+    }
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('preferredLang', lang);
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+        });
+        applyTranslations();
+    }
+
+    // Get search query from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    searchQuery = urlParams.get('q') || '';
+
+    document.getElementById('backBtn')?.addEventListener('click', () => window.location.href = 'index.html');
+
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    menuBtn?.addEventListener('click', () => mobileMenu.classList.add('open'));
+    closeMenu?.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+    document.querySelectorAll('.lang-btn, .menu-langs button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            setLanguage(btn.getAttribute('data-lang'));
+            mobileMenu.classList.remove('open');
+        });
+    });
+
+    const savedLang = localStorage.getItem('preferredLang');
+    setLanguage(savedLang && ['en','sid','amh'].includes(savedLang) ? savedLang : 'en');
+</script>
+
+</body>
+</html>

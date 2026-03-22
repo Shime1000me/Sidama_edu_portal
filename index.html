@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Sidama Education Portal | Official School Registration</title>
+    <meta name="description" content="Official education registration portal for Sidama Region. Register online in English, Amharic, or Sidaamu Afoo. 500+ schools, 5 zones.">
+    <meta name="keywords" content="Sidama education, school registration, Sidama Region, online registration">
+    <meta name="author" content="Sidama Education Bureau">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Sidama Education Portal">
+    <meta property="og:description" content="Official education registration portal for Sidama Region">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/logo.png">
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f8f9fa;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+        .top-bar {
+            background: #0b4f37;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .lang-btn.active {
+            background: #fcd116;
+            color: #0b4f37;
+            font-weight: bold;
+        }
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 200;
+            transition: left 0.3s ease;
+            padding: 20px;
+        }
+        .mobile-menu.open { left: 0; }
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 24px;
+            float: right;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .mobile-menu a {
+            display: block;
+            padding: 12px 0;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        .menu-divider {
+            height: 1px;
+            background: #ddd;
+            margin: 15px 0;
+        }
+        .menu-langs button {
+            background: #f0f0f0;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            text-align: left;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        main {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+        .logo-box { text-align: center; margin-bottom: 20px; }
+        .logo-img { width: 80px; height: auto; margin-bottom: 10px; }
+        .bureau-name { font-size: 14px; color: #0b4f37; }
+        .hero-box {
+            background: #e9ecef;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .hero-img { width: 100%; height: auto; display: block; }
+        .hero-caption {
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            color: #0b4f37;
+            font-weight: bold;
+            background: white;
+        }
+        .welcome-box { text-align: center; margin-bottom: 20px; }
+        .region-name { font-size: 20px; color: #0b4f37; margin-bottom: 12px; }
+        .welcome-text { font-size: 14px; margin-bottom: 10px; }
+        .info-text { font-size: 13px; color: #555; }
+        .big-btn-wrap { text-align: center; margin: 20px 0; }
+        .big-register {
+            background: #fcd116;
+            border: none;
+            padding: 14px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 280px;
+        }
+        .search-wrap {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .section-title { font-size: 18px; margin-bottom: 12px; color: #0b4f37; }
+        .search-desc { font-size: 13px; color: #666; margin-bottom: 15px; }
+        .search-box { display: flex; gap: 10px; }
+        .search-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .search-btn {
+            background: #0b4f37;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .zones-wrap { margin-bottom: 24px; }
+        .zones-grid { display: flex; flex-direction: column; gap: 12px; }
+        .zone-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+        .zone-header { font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+        .zone-woredas { font-size: 12px; color: #666; margin-bottom: 12px; }
+        .zone-btn {
+            background: #0b4f37;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .leaders-wrap { margin-bottom: 24px; }
+        .leaders-grid { display: flex; flex-direction: column; gap: 16px; }
+        .leader-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .leader-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+        .leader-title { font-size: 12px; color: #666; margin-bottom: 8px; }
+        .quote { font-size: 13px; font-style: italic; color: #0b4f37; }
+        .benefits-wrap { margin-bottom: 24px; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .benefit-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .benefit-icon { font-size: 32px; margin-bottom: 8px; }
+        .benefit-card h4 { font-size: 14px; margin-bottom: 4px; }
+        .benefit-card p { font-size: 11px; color: #666; }
+        .stats-wrap { margin-bottom: 24px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .stat-card {
+            background: #0b4f37;
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-number { font-size: 28px; font-weight: bold; }
+        .stat-label { font-size: 11px; margin-top: 5px; }
+        .featured-wrap { margin-bottom: 24px; }
+        .schools-grid { display: flex; flex-direction: column; gap: 16px; }
+        .school-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .school-card h4 { font-size: 16px; margin-bottom: 4px; }
+        .school-location { font-size: 12px; color: #666; margin-bottom: 4px; }
+        .school-grades { font-size: 12px; color: #0b4f37; margin-bottom: 4px; }
+        .school-rating { font-size: 12px; color: #fcd116; margin-bottom: 12px; }
+        .register-btn {
+            background: #fcd116;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        .reading-wrap { margin-bottom: 24px; }
+        .reading-img { width: 100%; border-radius: 16px; }
+        .reading-caption { text-align: center; font-size: 12px; margin-top: 8px; color: #0b4f37; font-weight: bold; }
+        .howit-wrap { margin-bottom: 24px; }
+        .steps-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .step-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .step-num { font-size: 24px; margin-bottom: 8px; }
+        .step-title { font-weight: bold; font-size: 14px; margin-bottom: 4px; }
+        .step-desc { font-size: 11px; color: #0b4f37; font-weight: bold; }
+        .step-detail { font-size: 10px; color: #666; margin-top: 5px; }
+        .cta-wrap { text-align: center; margin: 24px 0; }
+        .cta-text { font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        footer {
+            background: #0b4f37;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .footer-logo-img { width: 60px; height: auto; margin-bottom: 10px; }
+        .footer-logo h3 { font-size: 14px; margin-top: 8px; }
+        .footer-contact p { font-size: 12px; margin: 5px 0; }
+        .footer-contact a { color: white; text-decoration: none; }
+        .social-icons span { margin: 0 10px; font-size: 20px; cursor: pointer; }
+        .footer-resources ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        .footer-resources a { color: white; text-decoration: none; font-size: 12px; }
+        .footer-copyright { font-size: 10px; margin-top: 20px; opacity: 0.7; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en">ENGLISH</button>
+        <button class="lang-btn" data-lang="sid">SIDAAMU AFOO</button>
+        <button class="lang-btn" data-lang="amh">አማርኛ</button>
+    </div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">✕</button>
+    <a href="index.html" data-key="home">HOME</a>
+    <a href="search.html" data-key="search">SEARCH</a>
+    <a href="zones.html" data-key="zones">ZONES</a>
+    <a href="about.html" data-key="about">ABOUT US</a>
+    <a href="contact.html" data-key="contact">CONTACT</a>
+    <a href="help.html" data-key="help">HELP</a>
+    <div class="menu-divider"></div>
+    <div class="menu-langs">
+        <button data-lang="en">🌐 ENGLISH</button>
+        <button data-lang="sid">🌐 SIDAAMU AFOO</button>
+        <button data-lang="amh">🌐 አማርኛ</button>
+    </div>
+</div>
+
+<main>
+
+<div class="logo-box">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <h2 class="bureau-name" data-key="bureau">SIDAMA EDUCATION BUREAU</h2>
+</div>
+
+<div class="hero-box">
+    <img src="images/registering.jpg" alt="Student registering" class="hero-img">
+    <p class="hero-caption" data-key="hero_caption">Register in 5 minutes</p>
+</div>
+
+<div class="welcome-box">
+    <h1 class="region-name" data-key="region">SIDAMA NATIONAL REGIONAL STATE</h1>
+    <p class="welcome-text" data-key="welcome">🎉 Welcome to Sidama Region Education System! 🎊</p>
+    <p class="info-text" data-key="info">💡 Our tools help you register, find schools, and manage your records. Register from home with no queues! 🚫🚶</p>
+</div>
+
+<div class="big-btn-wrap">
+    <button class="big-register" id="bigRegisterBtn" data-key="big_register">🚀 REGISTER NOW</button>
+</div>
+
+<div class="search-wrap">
+    <h3 class="section-title" data-key="search_title">🔍 FIND YOUR SCHOOL</h3>
+    <p class="search-desc" data-key="search_desc">Search 500+ schools across 5 zones. Find registration status, deadlines, and requirements for each school. 📋✅</p>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Hayole, Tabor, Lakote..." class="search-input">
+        <button id="searchBtn" class="search-btn" data-key="search_btn">🔍 SEARCH</button>
+    </div>
+</div>
+
+<div class="zones-wrap">
+    <h3 class="section-title" data-key="zones_title">🌍 BROWSE BY ZONE 🌍</h3>
+    <div class="zones-grid" id="zonesGrid"></div>
+</div>
+
+<div class="leaders-wrap">
+    <h3 class="section-title" data-key="leaders_title">💬 MESSAGES FROM LEADERS 💬</h3>
+    <div class="leaders-grid">
+        <div class="leader-card">
+            <img src="images/birhanu.jpg" alt="Birhanu Nega" class="leader-img">
+            <h4>BIRHANU NEGA</h4>
+            <p class="leader-title" data-key="birhanu_title">Ethiopia Education Minister</p>
+            <p class="quote" data-key="birhanu_quote">"Quality Education for All"</p>
+        </div>
+        <div class="leader-card">
+            <img src="images/beyene.jpg" alt="Beyene Barasa" class="leader-img">
+            <h4>BEYENE BARASA</h4>
+            <p class="leader-title" data-key="beyene_title">Sidama Education Bureau Head</p>
+            <p class="quote" data-key="beyene_quote">"Education is a powerful tool to change our community"</p>
+        </div>
+    </div>
+</div>
+
+<div class="benefits-wrap">
+    <h3 class="section-title" data-key="benefits_title">❓ WHY REGISTER WITH US? ❓</h3>
+    <div class="benefits-grid">
+        <div class="benefit-card"><div class="benefit-icon">⚡</div><h4 data-key="benefit1_title">FAST REGISTRATION</h4><p data-key="benefit1_desc">Register in 5 minutes</p></div>
+        <div class="benefit-card"><div class="benefit-icon">📱</div><h4 data-key="benefit2_title">MOBILE FRIENDLY</h4><p data-key="benefit2_desc">Works on any phone</p></div>
+        <div class="benefit-card"><div class="benefit-icon">🏆</div><h4 data-key="benefit3_title">OFFICIALLY APPROVED</h4><p data-key="benefit3_desc">Approved by Sidama Education Bureau</p></div>
+        <div class="benefit-card"><div class="benefit-icon">🏠</div><h4 data-key="benefit4_title">REGISTER FROM HOME</h4><p data-key="benefit4_desc">No queues! 🚫🚶</p></div>
+    </div>
+</div>
+
+<div class="stats-wrap">
+    <h3 class="section-title" data-key="stats_title">📊 SIDAMA EDUCATION BY NUMBERS 📊</h3>
+    <div class="stats-grid">
+        <div class="stat-card"><div class="stat-number">500+</div><div class="stat-label" data-key="stat_schools">SCHOOLS</div></div>
+        <div class="stat-card"><div class="stat-number">50+</div><div class="stat-label" data-key="stat_woredas">WOREDAS</div></div>
+        <div class="stat-card"><div class="stat-number">15,000+</div><div class="stat-label" data-key="stat_students">STUDENTS REGISTERED</div></div>
+        <div class="stat-card"><div class="stat-number">5</div><div class="stat-label" data-key="stat_zones">ZONES</div></div>
+    </div>
+</div>
+
+<div class="featured-wrap">
+    <h3 class="section-title" data-key="featured_title">⭐ FEATURED SCHOOLS ⭐</h3>
+    <div class="schools-grid" id="featuredSchoolsGrid"></div>
+</div>
+
+<div class="reading-wrap">
+    <img src="images/reading.jpg" alt="Students reading" class="reading-img">
+    <p class="reading-caption" data-key="reading_caption">READING TOGETHER</p>
+</div>
+
+<div class="howit-wrap">
+    <h3 class="section-title" data-key="how_title">📖 HOW TO REGISTER? 📖</h3>
+    <div class="steps-grid">
+        <div class="step-card"><div class="step-num">1️⃣</div><div class="step-title" data-key="step1_title">STEP 1</div><div class="step-desc" data-key="step1_desc">CHOOSE SCHOOL</div><div class="step-detail" data-key="step1_detail">Select zone or search</div></div>
+        <div class="step-card"><div class="step-num">2️⃣</div><div class="step-title" data-key="step2_title">STEP 2</div><div class="step-desc" data-key="step2_desc">FILL FORM</div><div class="step-detail" data-key="step2_detail">Name, Grade, Transaction ID</div></div>
+        <div class="step-card"><div class="step-num">3️⃣</div><div class="step-title" data-key="step3_title">STEP 3</div><div class="step-desc" data-key="step3_desc">UPLOAD DOCS</div><div class="step-detail" data-key="step3_detail">Receipt and Transcript</div></div>
+        <div class="step-card"><div class="step-num">4️⃣</div><div class="step-title" data-key="step4_title">STEP 4</div><div class="step-desc" data-key="step4_desc">GET CONFIRMATION</div><div class="step-detail" data-key="step4_detail">SMS within 24 hours</div></div>
+    </div>
+</div>
+
+<div class="cta-wrap">
+    <div class="cta-text" data-key="cta_text">🎯 REGISTER TODAY, START YOUR EDUCATION TOMORROW! 🎯</div>
+    <button class="big-register" id="bigRegisterBtnBottom" data-key="big_register">🚀 REGISTER NOW</button>
+</div>
+
+</main>
+
+<footer>
+    <div class="footer-logo"><img src="images/logo.png" alt="Logo" class="footer-logo-img"><h3 data-key="footer_bureau">SIDAMA EDUCATION BUREAU</h3></div>
+    <div class="footer-contact"><p>📍 Hawassa, Sidama Region</p><p>📞 +251962524802</p><p><a href="https://t.me/shimetechsolutions" target="_blank">✉️ info@sidamaeducation.gov.et</a></p></div>
+    <div class="footer-social"><p data-key="follow_us">🤝 FOLLOW US:</p><div class="social-icons"><span class="social-link" data-message="Telegram is recommended!">📘 Facebook</span><a href="https://t.me/shimetechsolutions" target="_blank" style="color:white; text-decoration:none;">📘 Telegram</a><span class="social-link" data-message="Telegram is recommended!">📘 Twitter</span></div></div>
+    <div class="footer-resources"><p data-key="resources">📚 RESOURCES:</p><ul><li><a href="#" data-key="student_guide">Student Guide</a></li><li><a href="#" data-key="faq">FAQ</a></li><li><a href="#" data-key="help_center">Help Center</a></li><li><a href="#" data-key="help">HELP</a></li></ul></div>
+    <div class="footer-copyright"><p>© 2026 Sidama Education Bureau. All Rights Reserved.</p></div>
+</footer>
+
+<script>
+    // Zones Data
+    const zonesData = [
+        { name: "🏔️ CENTRAL SIDAMA ZONE", woredas: "Arbegona · Dale · Darara · Irgalem Town · Loko Abaya · Shafamo · Wensho" },
+        { name: "🌄 EASTERN SIDAMA ZONE", woredas: "Aroresa · Bensa · Bona Zuria · Bura · Chabe Gambeltu · Chere · Daela · Daye Town · Hoko" },
+        { name: "🏙️ HAWASSA ZONE", woredas: "Addis Ketema · Hayk Dar · Mehal · Menahariya · Misrak · Tabor · Hawela Tula · Bahil Adarash" },
+        { name: "⛰️ NORTHERN SIDAMA ZONE", woredas: "Bilate Zuria · Boricha · Gorche · Hawassa Zuria · Malga · Shebedino · Wondo Genet" },
+        { name: "🌋 SOUTHERN SIDAMA ZONE", woredas: "Aleta Wendo · Aleta Wendo Town · Bursa · Chuko · Dara · Dara Otilcho · Hula · Teticha" }
+    ];
+
+    // Featured Schools
+    let featuredSchools = [
+        { name: "FUMA HAYOLE EDUCATION PROJECT", location: "Mehal, Hawassa", grades: "Grade 9-12", rating: "⭐ 4.9", form_link: "#" },
+        { name: "LAKKOTE 2nd CYCLE SECONDARY", location: "Shebedino, Northern", grades: "Grade 9-12", rating: "⭐ 4.9", form_link: "#" },
+        { name: "TABOR 2nd CYCLE SECONDARY", location: "Tabor, Hawassa", grades: "Grade 9-12", rating: "⭐ 4.7", form_link: "#" },
+        { name: "RAS DESTA 2nd CYCLE SECONDARY", location: "Irgalem, Central", grades: "Grade 9-12", rating: "⭐ 4.9", form_link: "#" }
+    ];
+
+    let currentLang = 'en';
+
+    const translations = {
+        en: {
+            bureau: "SIDAMA EDUCATION BUREAU", region: "SIDAMA NATIONAL REGIONAL STATE",
+            welcome: "🎉 Welcome to Sidama Region Education System! 🎊",
+            info: "💡 Our tools help you register, find schools, and manage your records. Register from home with no queues! 🚫🚶",
+            big_register: "🚀 REGISTER NOW", hero_caption: "Register in 5 minutes",
+            search_title: "🔍 FIND YOUR SCHOOL", search_desc: "Search 500+ schools across 5 zones. Find registration status, deadlines, and requirements for each school. 📋✅",
+            search_btn: "🔍 SEARCH", zones_title: "🌍 BROWSE BY ZONE 🌍",
+            leaders_title: "💬 MESSAGES FROM LEADERS 💬", birhanu_title: "Ethiopia Education Minister", birhanu_quote: "\"Quality Education for All\"",
+            beyene_title: "Sidama Education Bureau Head", beyene_quote: "\"Education is a powerful tool to change our community\"",
+            benefits_title: "❓ WHY REGISTER WITH US? ❓", benefit1_title: "FAST REGISTRATION", benefit1_desc: "Register in 5 minutes",
+            benefit2_title: "MOBILE FRIENDLY", benefit2_desc: "Works on any phone", benefit3_title: "OFFICIALLY APPROVED", benefit3_desc: "Approved by Sidama Education Bureau",
+            benefit4_title: "REGISTER FROM HOME", benefit4_desc: "No queues! 🚫🚶", stats_title: "📊 SIDAMA EDUCATION BY NUMBERS 📊",
+            stat_schools: "SCHOOLS", stat_woredas: "WOREDAS", stat_students: "STUDENTS REGISTERED", stat_zones: "ZONES",
+            featured_title: "⭐ FEATURED SCHOOLS ⭐", reading_caption: "READING TOGETHER",
+            how_title: "📖 HOW TO REGISTER? 📖", step1_title: "STEP 1", step1_desc: "CHOOSE SCHOOL", step1_detail: "Select zone or search",
+            step2_title: "STEP 2", step2_desc: "FILL FORM", step2_detail: "Name, Grade, Transaction ID",
+            step3_title: "STEP 3", step3_desc: "UPLOAD DOCS", step3_detail: "Receipt and Transcript",
+            step4_title: "STEP 4", step4_desc: "GET CONFIRMATION", step4_detail: "SMS within 24 hours",
+            cta_text: "🎯 REGISTER TODAY, START YOUR EDUCATION TOMORROW! 🎯",
+            home: "HOME", search: "SEARCH", zones: "ZONES", about: "ABOUT US", contact: "CONTACT", help: "HELP",
+            footer_bureau: "SIDAMA EDUCATION BUREAU", follow_us: "🤝 FOLLOW US:", resources: "📚 RESOURCES:",
+            student_guide: "Student Guide", faq: "FAQ", help_center: "Help Center", zone_btn: "SELECT", register_btn: "REGISTER"
+        },
+        sid: {
+            bureau: "SIDAAMU QOQQOWI ROSU BIIRO", region: "SIDAAMU QOQQOWU MOOTIMMA",
+            welcome: "🎉 Sidaamu qoqqowi giddo noo rosi minnara borreessammanni battala! 🎊",
+            info: "💡 Kowiicho rosu mine doorte borreessama dandaatto. borreessamate rosi minira marre agadha gattino! 🚫🚶",
+            big_register: "🚀 XAANNI BORREESSAMI", hero_caption: "5 XIQQEESSI GIDDO BORREESSAMMI",
+            search_title: "🔍 ROSU MINE HASI", search_desc: "5 zoonna giddo afantannota 500+ rosu minna hasi. 📋✅",
+            search_btn: "🔍 HASI", zones_title: "🌍 ZOONNA HASI 🌍",
+            leaders_title: "💬 DANCHA ROSU DIRO 💬", birhanu_title: "Itiyoophiyu Rosu Minisitere", birhanu_quote: "\"Silancho roso wo'munkura\"",
+            beyene_title: "Sidaamu Qoqqowi Rosu Biiro", beyene_quote: "\"Rosu qoqqowonke sidaama woyyeessate baayra wolqaati\"",
+            benefits_title: "❓ KOWIICHO BORREESSAMATENNI AFIDHINANNI HORO ❓", benefit1_title: "SHIIMA YANNA GIDDO BORREESSAMA", benefit1_desc: "5 xiqqeessi giddo borreessami",
+            benefit2_title: "MOOBAAYLETENNI LOOSANNO", benefit2_desc: "Ayee moobaayleno horonsira danditinanni",
+            benefit3_title: "FAJJO UYNOONNIKE", benefit3_desc: "Sidaamu qoqqowi rosu biiro fajjo uytinonke",
+            benefit4_title: "MINE HEEDHE BORREESSAMA DANDAATTO", benefit4_desc: "rosu mine marre agadha gattino! 🚫🚶",
+            stats_title: "📊 SIDAAMU QOQQOWI GIDDO HEEDHANNO ROSI MINNA KIIROTENNI 📊",
+            stat_schools: "📚 ROSI MINNA", stat_woredas: "📍 WORADDA", stat_students: "👨‍🎓 ROSAANO BORREESS ANTANNI NO", stat_zones: "🌍 ZOONNA",
+            featured_title: "⭐ EGENNANTINO ROSI MINNA ⭐", reading_caption: "MITTEENNI XIINXALLITANNI NOORE",
+            how_title: "📖 HIITTOONNI BORREESSAMMANNI? 📖", step1_title: "UMO", step1_desc: "ROSU MINE DOORI", step1_detail: "Zoone doori woy hasi",
+            step2_title: "LANKIHUNNI", step2_desc: "FORME WONSHI", step2_detail: "Su'ma, kifile, gumate lakki",
+            step3_title: "SAYIKKIHUNNI", step3_desc: "GUMU FOTO SOY", step3_detail: "Kiffu waraqsha fi qormaata duraa",
+            step4_title: "JEEFOTE", step4_desc: "BORREESSINOOMOHETA", step4_detail: "24 saate kawa sokka(sms) sonke egensiinseemmohe",
+            cta_text: "🎯 TEWO BORREESSAMI, GA'A ROSO HANAFI 🎯",
+            home: "🏠 KAIMA", search: "🔍 HASI", zones: "📍 ZOONNA", about: "ℹ️ NINKE DAAFIRA", contact: "📞 NINKENNI XAADI", help: "❓ KAA'LO",
+            footer_bureau: "SIDAAMU QOQQOWI ROSU BIIRO", follow_us: "🤝 HARUNSENKE:", resources: "📚 RESOURCES:",
+            student_guide: "Student Guide", faq: "FAQ", help_center: "Help Center", zone_btn: "DOORI", register_btn: "🚀 BORREESSAMI"
+        },
+        amh: {
+            bureau: "ሲዳማ ትምህርት ቢሮ", region: "ሲዳማ ብሔራዊ ክልላዊ መንግሥት",
+            welcome: "🎉 እንኳን ወደ ሲዳማ ክልል ትምህርት ሥርዓት በደህና መጡ! 🎊",
+            info: "💡 መሳሪያዎቻችን እንዲመዘገቡ፣ ትምህርት ቤቶችን እንዲያገኙ እና መዝገቦችዎን እንዲያስተዳድሩ ይረዱዎታል። ከቤትዎ ይመዝገቡ ወረፋ አያስፈልግም! 🚫🚶",
+            big_register: "🚀 አሁን ይመዝገቡ", hero_caption: "በ5 ደቂቃ ውስጥ ይመዝገቡ",
+            search_title: "🔍 ትምህርት ቤት ይፈልጉ", search_desc: "በ5 ዞኖች ውስጥ ከ500 በላይ ትምህርት ቤቶችን ይፈልጉ። 📋✅",
+            search_btn: "🔍 ፈልግ", zones_title: "🌍 በዞን ይምረጡ 🌍",
+            leaders_title: "💬 የትምህርት መሪዎች መልዕክት 💬", birhanu_title: "የኢትዮጵያ ትምህርት ሚኒስትር", birhanu_quote: "\"ጥራት ያለው ትምህርት ለሁሉም\"",
+            beyene_title: "የሲዳማ ትምህርት ቢሮ ኃላፊ", beyene_quote: "\"ትምህርት ማህበረሰባችንን ለመለወጥ ኃይለኛ መሳሪያ ነው\"",
+            benefits_title: "❓ ለምን እዚህ ይመዝገቡ? ❓", benefit1_title: "ፈጣን ምዝገባ", benefit1_desc: "በ5 ደቂቃ ውስጥ ይመዝገቡ",
+            benefit2_title: "በሞባይል ይስራል", benefit2_desc: "በማንኛውም ስልክ ይስራል", benefit3_title: "በይፋ እውቅና ያለው", benefit3_desc: "በሲዳማ ትምህርት ቢሮ የተፈቀደ",
+            benefit4_title: "ከቤት ይመዝገቡ", benefit4_desc: "ወረፋ አያስፈልግም! 🚫🚶",
+            stats_title: "📊 ሲዳማ ትምህርት በቁጥር 📊", stat_schools: "📚 ትምህርት ቤቶች", stat_woredas: "📍 ወረዳዎች", stat_students: "👨‍🎓 ተማሪዎች ተመዝግበዋል", stat_zones: "🌍 ዞኖች",
+            featured_title: "⭐ ታዋቂ ትምህርት ቤቶች ⭐", reading_caption: "አንድ ላይ ማንበብ",
+            how_title: "📖 እንዴት እንደሚመዝገቡ? 📖", step1_title: "ደረጃ 1", step1_desc: "ትምህርት ቤት ምረጥ", step1_detail: "ዞን ወይም ፍለጋ",
+            step2_title: "ደረጃ 2", step2_desc: "ቅጹን ይሙሉ", step2_detail: "ስም፣ ክፍል፣ የግብይት መለያ",
+            step3_title: "ደረጃ 3", step3_desc: "ሰነድ ይጫኑ", step3_detail: "ደረሰኝ እና ውጤት",
+            step4_title: "ደረጃ 4", step4_desc: "ማረጋገጫ ይቀበሉ", step4_detail: "በ24 ሰዓት ውስጥ ኤስኤምኤስ",
+            cta_text: "🎯 ዛሬውኑ ይመዝገቡ፣ ነገ ትምህርትዎን ይጀምሩ! 🎯",
+            home: "🏠 መነሻ", search: "🔍 ፍለጋ", zones: "📍 ዞኖች", about: "ℹ️ ስለ እኛ", contact: "📞 አድራሻ", help: "❓ እገዛ",
+            footer_bureau: "ሲዳማ ትምህርት ቢሮ", follow_us: "🤝 ተከተሉን:", resources: "📚 ማገናኛዎች:",
+            student_guide: "የተማሪ መመሪያ", faq: "ተደጋጋሚ ጥያቄዎች", help_center: "እገዛ ማዕከል", zone_btn: "ይምረጡ", register_btn: "🚀 ይመዝገቡ"
+        }
+    };
+
+    function loadZones() {
+        const container = document.getElementById('zonesGrid');
+        if (!container) return;
+        container.innerHTML = '';
+        zonesData.forEach(zone => {
+            const card = document.createElement('div');
+            card.className = 'zone-card';
+            card.innerHTML = `<div class="zone-header">${zone.name}</div><div class="zone-woredas">${zone.woredas}</div><button class="zone-btn" onclick="window.location.href='woreda.html?zone=${encodeURIComponent(zone.name)}'">${translations[currentLang].zone_btn}</button>`;
+            container.appendChild(card);
+        });
+    }
+
+    function loadFeaturedSchools() {
+        const container = document.getElementById('featuredSchoolsGrid');
+        if (!container) return;
+        container.innerHTML = '';
+        featuredSchools.forEach(school => {
+            const card = document.createElement('div');
+            card.className = 'school-card';
+            card.innerHTML = `<h4>${school.name}</h4><div class="school-location">📍 ${school.location}</div><div class="school-grades">🎓 ${school.grades}</div><div class="school-rating">${school.rating}</div><button class="register-btn" onclick="window.open('${school.form_link}', '_blank')">${translations[currentLang].register_btn}</button>`;
+            container.appendChild(card);
+        });
+    }
+
+    function applyTranslations() {
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (translations[currentLang][key]) el.innerHTML = translations[currentLang][key];
+        });
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            const key = link.getAttribute('data-key');
+            if (key && translations[currentLang][key]) link.innerHTML = translations[currentLang][key];
+        });
+        loadZones();
+        loadFeaturedSchools();
+    }
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('preferredLang', lang);
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+        });
+        applyTranslations();
+    }
+
+    document.querySelectorAll('.social-link').forEach(el => {
+        el.addEventListener('click', () => alert('Telegram is recommended! Please use Telegram.'));
+    });
+
+    document.getElementById('bigRegisterBtn')?.addEventListener('click', () => window.location.href = 'zones.html');
+    document.getElementById('bigRegisterBtnBottom')?.addEventListener('click', () => window.location.href = 'zones.html');
+
+    document.getElementById('searchBtn')?.addEventListener('click', () => {
+        const query = document.getElementById('searchInput')?.value.trim();
+        if (query) window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+    });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    menuBtn?.addEventListener('click', () => mobileMenu.classList.add('open'));
+    closeMenu?.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+    document.querySelectorAll('.lang-btn, .menu-langs button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            setLanguage(btn.getAttribute('data-lang'));
+            mobileMenu.classList.remove('open');
+        });
+    });
+
+    const savedLang = localStorage.getItem('preferredLang');
+    setLanguage(savedLang && ['en','sid','amh'].includes(savedLang) ? savedLang : 'en');
+</script>
+
+</body>
+</html>
