@@ -1,0 +1,60 @@
+{
+  "schools": [
+    {
+      "id": 1,
+      "name_sid": "FUMA HAYYOOLE ROSU PIROJEKITE",
+      "name_eng": "FUMA HAYOLE EDUCATION PROJECT",
+      "name_amh": "ፉማ ሃዮሌ ትምህርት ፕሮጀክት",
+      "zone": "Hawassa",
+      "woreda": "Mehal",
+      "grades": "Grade 9-12",
+      "rating": "4.9",
+      "form_link_sid": "#",
+      "form_link_eng": "#",
+      "form_link_amh": "#",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "name_sid": "LEKU 2ᵏⁱ DIRIMI ROSI MINE",
+      "name_eng": "LAKOTE 2nd CYCLE SECONDARY",
+      "name_amh": "ላኮቴ 2ኛ ደረጃ ትምህርት ቤት",
+      "zone": "Northern",
+      "woreda": "Shebedino",
+      "grades": "Grade 9-12",
+      "rating": "4.9",
+      "form_link_sid": "#",
+      "form_link_eng": "#",
+      "form_link_amh": "#",
+      "featured": true
+    },
+    {
+      "id": 3,
+      "name_sid": "TAABOORI 2ᵏⁱ DIRIMI ROSI MINE",
+      "name_eng": "TABOR 2nd CYCLE SECONDARY",
+      "name_amh": "ታቦር 2ኛ ደረጃ ትምህርት ቤት",
+      "zone": "Hawassa",
+      "woreda": "Tabor",
+      "grades": "Grade 9-12",
+      "rating": "4.7",
+      "form_link_sid": "#",
+      "form_link_eng": "#",
+      "form_link_amh": "#",
+      "featured": true
+    },
+    {
+      "id": 4,
+      "name_sid": "RAAS DESITA 2ᵏⁱ DIRIMI ROSI MINE",
+      "name_eng": "RAS DESTA 2nd CYCLE SECONDARY",
+      "name_amh": "ራስ ደስታ 2ኛ ደረጃ ትምህርት ቤት",
+      "zone": "Central",
+      "woreda": "Irgalem Town",
+      "grades": "Grade 9-12",
+      "rating": "4.9",
+      "form_link_sid": "#",
+      "form_link_eng": "#",
+      "form_link_amh": "#",
+      "featured": true
+    }
+  ]
+}
